@@ -1,0 +1,19 @@
+{
+	"name": "simple-static-boilerplate",
+	"version": "0.0.1",
+	"description": "Simple static HTML page with HTML5 Boilerplate and Tailwind CSS.",
+	"license": "MIT",
+	"author": "Cory Evan Wright <coryevan@gmail.com>",
+	"scripts": {
+		"dev": "cross-env parcel public/index.html",
+		"build": "cross-env NODE_ENV=production parcel build public/*.html -d docs --log-level 4 --public-url ./ --no-cache --no-content-hash"
+	},
+	"devDependencies": {
+		"cross-env": "^7.0.2",
+		"parcel": "^1.12.4"
+	},
+	"dependencies": {
+		"autoprefixer": "^9.8.6",
+		"tailwindcss": "^1.9.6"
+	}
+}
