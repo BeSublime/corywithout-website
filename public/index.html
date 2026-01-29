@@ -31,16 +31,9 @@
 <body class="scanlines scanline-move">
 
 	<!-- Transit Lines - Ambient moving elements -->
-	<div class="transit-line w-full top-[15%] animate-train-pass" style="animation-delay: 0s;" aria-hidden="true"></div>
-	<div class="transit-line w-full top-[45%] animate-train-pass" style="animation-delay: 4s;" aria-hidden="true"></div>
-	<div class="transit-line w-full top-[80%] animate-train-pass" style="animation-delay: 8s;" aria-hidden="true"></div>
-
-	<!-- City skyline silhouette (decorative) -->
-	<div class="fixed bottom-0 left-0 w-full h- opacity-10 pointer-events-none z-1" style="background: linear-gradient(to top, #12121a 0%, transparent 100%);" aria-hidden="true">
-		<svg class="w-full h-full" viewBox="0 0 1200 100" preserveAspectRatio="none" aria-hidden="true">
-			<path fill="#00fff9" opacity="0.3" d="M0,100 L0,70 L50,70 L50,40 L80,40 L80,60 L100,60 L100,30 L130,30 L130,50 L150,50 L150,20 L180,20 L180,45 L200,45 L200,55 L230,55 L230,25 L260,25 L260,60 L290,60 L290,35 L320,35 L320,50 L350,50 L350,15 L380,15 L380,40 L400,40 L400,65 L430,65 L430,30 L460,30 L460,55 L490,55 L490,45 L520,45 L520,25 L550,25 L550,60 L580,60 L580,20 L610,20 L610,50 L640,50 L640,35 L670,35 L670,55 L700,55 L700,40 L730,40 L730,15 L760,15 L760,45 L790,45 L790,60 L820,60 L820,30 L850,30 L850,50 L880,50 L880,25 L910,25 L910,55 L940,55 L940,40 L970,40 L970,65 L1000,65 L1000,35 L1030,35 L1030,50 L1060,50 L1060,20 L1090,20 L1090,45 L1120,45 L1120,60 L1150,60 L1150,30 L1180,30 L1180,70 L1200,70 L1200,100 Z"/>
-		</svg>
-	</div>
+	<div class="transit-line w-full top-[15%] animate-train-pass z-20 opacity-40" style="animation-delay: -2s;" aria-hidden="true"></div>
+	<div class="transit-line w-full top-[45%] animate-train-pass z-20 opacity-40" style="animation-delay: -9s;" aria-hidden="true"></div>
+	<div class="transit-line w-full top-[90%] animate-train-pass z-20 opacity-40" style="animation-delay: -5s;" aria-hidden="true"></div>
 
 	<main class="bg-cyber-black cyber-grid text-gray-100 font-thin tracking-wider flex flex-col items-center justify-center min-h-screen py-12 px-4 relative z-10">
 
@@ -64,7 +57,7 @@
 
 		<!-- About Section -->
 		<section id="about" class="max-w-xl mx-auto mb-16 relative">
-			<div class="about-card neon-box cyber-corners p-6 md:p-8 relative">
+			<div class="about-card box-corners p-6 md:p-8 relative">
 				<h2 class="text-sm uppercase tracking-[0.3em] text-neon-cyan mb-4 flex items-center gap-2">
 					<span class="w-8 h-px bg-neon-cyan" aria-hidden="true"></span>
 					ABOUT
