@@ -1,5 +1,323 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
-/* add your global styles here; use tailwind classes for component/element styles */
+/* ============================================
+   Theme Configuration - CSS Variables
+   Edit these values to customize colors
+   ============================================ */
+@theme {
+	/* Base colors */
+	--color-cyber-black: #0a0a0f;
+	--color-cyber-dark: #12121a;
+
+	/* Neon accent colors */
+	--color-neon-cyan: #00ffb3;
+	--color-neon-magenta: #ff00ff;
+	--color-neon-pink: #ff2d6a;
+	--color-neon-blue: #00b4ff;
+	--color-neon-purple: #bf00ff;
+	--color-transit-yellow: #ffe566;
+
+	/* Animations */
+	--animate-train-pass: train-pass 12s linear infinite;
+	--animate-scanline: scanline 8s linear infinite;
+	--animate-neon-breathe: neon-breathe 4s ease-in-out infinite;
+	--animate-neon-flicker: neon-flicker 8s ease-in-out infinite;
+	--animate-neon-dim-pulse: neon-dim-pulse 6s ease-in-out infinite;
+	--animate-blink: blink 1s step-end infinite;
+
+	/* Keyframes */
+	@keyframes train-pass {
+		0% { transform: translateX(-100%); }
+		100% { transform: translateX(200vw); }
+	}
+
+	@keyframes scanline {
+		0% { transform: translateY(-100%); }
+		100% { transform: translateY(100vh); }
+	}
+
+	@keyframes neon-breathe {
+		0%, 100% {
+			text-shadow:
+				0 0 4px var(--color-neon-cyan),
+				0 0 11px var(--color-neon-cyan),
+				0 0 19px color-mix(in srgb, var(--color-neon-cyan) 40%, transparent);
+		}
+		50% {
+			text-shadow:
+				0 0 2px var(--color-neon-cyan),
+				0 0 8px var(--color-neon-cyan),
+				0 0 14px color-mix(in srgb, var(--color-neon-cyan) 30%, transparent);
+		}
+	}
+
+	@keyframes neon-flicker {
+		0%, 100% { opacity: 1; }
+		4% { opacity: 1; }
+		4.5% { opacity: 0.3; }
+		5% { opacity: 1; }
+		54% { opacity: 1; }
+		54.5% { opacity: 0.4; }
+		55% { opacity: 1; }
+		55.5% { opacity: 0.5; }
+		56% { opacity: 1; }
+		78% { opacity: 1; }
+		78.5% { opacity: 0.6; }
+		79% { opacity: 0.3; }
+		79.5% { opacity: 0.8; }
+		80% { opacity: 1; }
+	}
+
+	@keyframes neon-dim-pulse {
+		0%, 100% { opacity: 0.45; }
+		50% { opacity: 0.6; }
+		73% { opacity: 0.35; }
+	}
+
+	@keyframes blink {
+		50% { opacity: 0; }
+	}
+
+	@keyframes pulse-ring {
+		0% { transform: scale(0.8); opacity: 0.5; }
+		50% { transform: scale(1); opacity: 0.3; }
+		100% { transform: scale(0.8); opacity: 0.5; }
+	}
+}
+
+/* ============================================
+   Cyberpunk Base Styles
+   ============================================ */
+@layer base {
+	body {
+		background-color: var(--color-cyber-black);
+		overflow-x: hidden;
+	}
+}
+
+@layer components {
+
+	:root {
+		/* CRT effect colors */
+		--crt-red: rgb(218, 49, 49);
+		--crt-green: rgb(112, 159, 115);
+		--crt-blue: rgb(40, 129, 206);
+	}
+	.crt {
+		background-color: #19191e;
+		text-shadow: 0 0 0.2em currentColor, 1px 1px rgba(255, 0, 200, 0.5), -1px -1px rgba(0, 255, 145, 0.4);
+		position: relative;
+	}
+	.crt:before, .crt:after {
+		content: "";
+		transform: translateZ(0);
+		pointer-events: none;
+		mix-blend-mode: overlay;
+		position: absolute;
+		height: 100%;
+		width: 100%;
+		left: 0;
+		top: 0;
+		z-index: 1;
+	}
+	.crt:before {
+		background: repeating-linear-gradient(var(--crt-red) 0px, var(--crt-green) 2px, var(--crt-blue) 4px);
+	}
+	.crt:after {
+		background: repeating-linear-gradient(90deg, var(--crt-red) 1px, var(--crt-green) 2px, var(--crt-blue) 3px);
+	}
+
+	/* Worn neon sign effect - like a tired sign in a back alley */
+	.neon-sign {
+		position: relative;
+		color: var(--color-neon-cyan);
+		text-shadow:
+			0 0 6px var(--color-neon-cyan),
+			0 0 15px color-mix(in srgb, var(--color-neon-cyan) 50%, transparent),
+			0 0 30px color-mix(in srgb, var(--color-neon-cyan) 25%, transparent);
+		animation: neon-breathe 4s ease-in-out infinite;
+	}
+
+	/* The "w" flickers like a bad tube */
+	.neon-sign .flicker {
+		animation: neon-flicker 8s ease-in-out infinite;
+	}
+
+	/* The "o" is dim, barely hanging on */
+	.neon-sign .dim {
+		opacity: 0.4;
+		text-shadow:
+			0 0 3px var(--color-neon-cyan),
+			0 0 8px color-mix(in srgb, var(--color-neon-cyan) 30%, transparent);
+		animation: neon-dim-pulse 6s ease-in-out infinite;
+	}
+
+	/* Legacy glitch class - keeping for backwards compatibility */
+	.glitch-text {
+		position: relative;
+	}
+
+	/* Neon glow effects */
+	.neon-text-cyan {
+		color: var(--color-neon-cyan);
+		text-shadow:
+			0 0 4px var(--color-neon-cyan),
+			0 0 8px var(--color-neon-cyan),
+			0 0 15px color-mix(in srgb, var(--color-neon-cyan) 50%, transparent);
+	}
+
+	.neon-text-magenta {
+		color: var(--color-neon-magenta);
+		text-shadow:
+			0 0 7px var(--color-neon-magenta),
+			0 0 10px var(--color-neon-magenta),
+			0 0 21px var(--color-neon-magenta);
+	}
+
+	.neon-text-pink {
+		color: var(--color-neon-pink);
+		text-shadow:
+			0 0 7px var(--color-neon-pink),
+			0 0 10px var(--color-neon-pink),
+			0 0 21px var(--color-neon-pink);
+	}
+
+	/* Scanline overlay */
+	.scanlines::before {
+		content: '';
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background: repeating-linear-gradient(
+			0deg,
+			rgba(0, 0, 0, 0.1),
+			rgba(0, 0, 0, 0.1) 1px,
+			transparent 1px,
+			transparent 2px
+		);
+		pointer-events: none;
+		z-index: 100;
+	}
+
+	/* Moving scanline */
+	.scanline-move::after {
+		content: '';
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 4px;
+		background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--color-neon-cyan) 15%, transparent), transparent);
+		animation: scanline 8s linear infinite;
+		pointer-events: none;
+		z-index: 101;
+	}
+
+	/* Grid background */
+	.cyber-grid {
+		background-size: 50px 50px;
+		background-image:
+			linear-gradient(color-mix(in srgb, var(--color-neon-cyan) 3%, transparent) 1px, transparent 1px),
+			linear-gradient(90deg, color-mix(in srgb, var(--color-neon-cyan) 3%, transparent) 1px, transparent 1px);
+	}
+
+	/* Transit line decoration */
+	.transit-line {
+		position: fixed;
+		height: 2px;
+		background: linear-gradient(90deg, transparent, var(--color-transit-yellow), var(--color-neon-cyan), transparent);
+		opacity: 0.6;
+	}
+
+	/* Social icon hover effect */
+	.cyber-icon {
+		transition: all 0.3s ease;
+		filter: drop-shadow(0 0 3px currentColor);
+	}
+
+	.cyber-icon:hover {
+		filter: drop-shadow(0 0 10px currentColor) drop-shadow(0 0 20px currentColor);
+		transform: translateY(-5px);
+	}
+
+	/* CRT flicker effect (subtle) */
+	.crt-flicker {
+		animation: flicker 0.15s infinite;
+	}
+
+	/* About section styling */
+	.about-card {
+		background: linear-gradient(135deg, var(--color-cyber-dark) 0%, var(--color-cyber-black) 100%);
+		border: 1px solid color-mix(in srgb, var(--color-neon-cyan) 30%, transparent);
+		box-shadow:
+			inset 0 0 20px color-mix(in srgb, var(--color-neon-cyan) 5%, transparent),
+			0 0 20px color-mix(in srgb, var(--color-neon-cyan) 10%, transparent);
+	}
+
+	/* Typewriter cursor effect */
+	.cursor-blink::after {
+		content: '▌';
+		animation: blink 1s step-end infinite;
+	}
+
+	/* Corner decorations */
+	.box-corners::before,
+	.box-corners::after {
+		content: '';
+		position: absolute;
+		width: 20px;
+		height: 20px;
+		border-color: var(--color-neon-cyan);
+		border-style: solid;
+	}
+
+	.box-corners::before {
+		top: -1px;
+		left: -1px;
+		border-width: 2px 0 0 2px;
+	}
+
+	.box-corners::after {
+		bottom: -1px;
+		right: -1px;
+		border-width: 0 2px 2px 0;
+	}
+}
+
+/* ============================================
+   Accessibility - Reduced Motion
+   ============================================ */
+@media (prefers-reduced-motion: reduce) {
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.01ms !important;
+	}
+
+	.neon-sign,
+	.neon-sign .flicker,
+	.neon-sign .dim {
+		animation: none;
+	}
+
+	.neon-sign .dim {
+		opacity: 0.5;
+	}
+
+	.transit-line {
+		display: none;
+	}
+
+	.scanline-move::after {
+		display: none;
+	}
+}
+
+/* Focus visible styles for keyboard navigation */
+.focus-visible\:ring-offset-cyber-black {
+	--tw-ring-offset-color: var(--color-cyber-black);
+}
